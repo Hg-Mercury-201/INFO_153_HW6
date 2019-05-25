@@ -2,6 +2,7 @@ import sqlite3
 import csv
 from sqlite3 import Error
 
+
 def create_connection(db_file):
     """ create a database connection to the SQLite database
         specified by db_file
@@ -27,6 +28,11 @@ def create_table(conn, create_table_sql):
         c.execute(create_table_sql)
     except Error as e:
         print(e)
+
+database = "credit.db"
+con = create_connection(database)
+CreditCardCSV = "UCI_Credit_Card.csv"
+
 
 def main():
     database = "credit.db"
@@ -57,19 +63,20 @@ def main():
                                         pay_amt5 INTEGER NOT NULL,
                                         pay_amt6 INTEGER NOT NULL,
                                         default_payment_next_month INTEGER NOT NULL);"""
-    conn = create_connection(database)
     if conn is not None:
         create_table(conn,sql_create_credit_table)
     else:
         print("Error: cannot create the database connection.")
 
-def read_csv(file):
-    with open(file,'r') as csv_file:
-        read = csv.reader(csv_file)
-    for line in read:
-        print (line)
-    print(read)
+def import_csv_SQLite(file):
 
-if __name__ == '__main__':
-    #main()
-    read_csv("UCI_Credit_card.csv")
+SQL = """
+    INSERT INTO credit_card_info()
+    """
+    with open(CreditCardCSV, 'rt') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+
+        with sqlite3.connect(database) as con:
+            cursor = con.cursor()
+            cursor.executemany(SQL, csv_reader)
+import_csv_SQLite("UCI_Credit_card.csv")
