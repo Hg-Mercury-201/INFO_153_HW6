@@ -1,4 +1,5 @@
 import sqlite3
+import sys
 import csv
 from sqlite3 import Error
 
@@ -69,14 +70,18 @@ def main():
         print("Error: cannot create the database connection.")
 
 def import_csv_SQLite(file):
+        stmt = '''
+INSERT INTO credit_card_info (limit_bal,sex,education,marriage,age,pay_0,pay_1,pay_2,pay_3,pay_4,pay_5,pay_6,
+bill_amt1,bill_amt2,bill_amt3,bill_amt4,bill_amt5,bill_amt6,pay_amt1,pay_amt2,pay_amt3,pay_amt4,pay_amt5,pay_amt6,default_payment_next_month)
+VALUES(:limit_bal,:sex,education,:marriage,age,:pay_0,:pay_1,:pay_2,:pay_3,:pay_4,:pay_5,:pay_6,
+:bill_amt1,:bill_amt2,:bill_amt3,:bill_amt4,:bill_amt5,:bill_amt6,:pay_amt1,:pay_amt2,:pay_amt3,:pay_amt4,:pay_amt5,:pay_amt6,:default_payment_next_month);
+                '''
 
-SQL = """
-    INSERT INTO credit_card_info()
-    """
-    with open(CreditCardCSV, 'rt') as csv_file:
-        csv_reader = csv.DictReader(csv_file)
+        with open(CreditCardCSV,'rt') as csv_file:
+            csv_read = csv.DictReader(csv_file)
 
-        with sqlite3.connect(database) as con:
-            cursor = con.cursor()
-            cursor.executemany(SQL, csv_reader)
+            with sqlite3.connect(database) as conn:
+                curs = conn.cursor()
+                curs.executemany(stmt,csv_read)
+
 import_csv_SQLite("UCI_Credit_card.csv")
