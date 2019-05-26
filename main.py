@@ -66,7 +66,7 @@ def main():
                                         pay_amt6 INTEGER NOT NULL,
                                         default_payment_next_month INTEGER NOT NULL);"""
     if con is not None:
-        create_table(conn,sql_create_credit_table)
+        create_table(con,sql_create_credit_table)
     else:
         print("Error: cannot create the database connection.")
 
