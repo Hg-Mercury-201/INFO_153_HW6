@@ -50,6 +50,7 @@ def main():
                                         pay_2 INTEGER NOT NULL,
                                         pay_3 INTEGER NOT NULL,
                                         pay_4 INTEGER NOT NULL,
+                                        pay_5 INTEGER NOT NULL.
                                         pay_6 INTEGER NOT NULL,
                                         bill_amt1 INTEGER NOT NULL,
                                         bill_amt2 INTEGER NOT NULL,
@@ -83,5 +84,5 @@ VALUES(:limit_bal,:sex,education,:marriage,age,:pay_0,:pay_1,:pay_2,:pay_3,:pay_
             with sqlite3.connect(database) as conn:
                 curs = conn.cursor()
                 curs.executemany(stmt,csv_read)
-
+main()
 import_csv_SQLite("UCI_Credit_card.csv")
