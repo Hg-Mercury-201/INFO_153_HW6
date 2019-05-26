@@ -84,5 +84,5 @@ VALUES(:limit_bal,:sex,education,:marriage,age,:pay_0,:pay_1,:pay_2,:pay_3,:pay_
             with sqlite3.connect(database) as conn:
                 curs = conn.cursor()
                 curs.executemany(stmt,csv_read)
-main()
+#main()
 import_csv_SQLite("UCI_Credit_card.csv")
